@@ -8,6 +8,7 @@ docker-compose --env-file environment/env.env up -d
 pip install -r requirements.txt
 
 Работает с версией Python 3.12.8
+
 3. Установить модуль bcrypt:
 
 pip install bcrypt
