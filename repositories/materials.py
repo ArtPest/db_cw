@@ -11,7 +11,7 @@ def get_all_materials():
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "SELECT material_id, name, size, shape FROM materials ORDER BY name"
+                "SELECT material_id, material_name, size, shape FROM materials ORDER BY material_name"
             )
             materials = cursor.fetchall()
             return materials
@@ -30,7 +30,7 @@ def get_material_by_id(material_id):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "SELECT material_id, name, size, shape FROM materials WHERE material_id = %s",
+                "SELECT material_id, material_name, size, shape FROM materials WHERE material_id = %s",
                 [material_id]
             )
             material = cursor.fetchone()
@@ -41,7 +41,7 @@ def get_material_by_id(material_id):
     finally:
         conn.close()
 
-def add_material(name, size, shape):
+def add_material(material_name, size, shape):
     """
     Добавить новый материал в базу данных.
     Возвращает ID добавленного материала.
@@ -50,8 +50,8 @@ def add_material(name, size, shape):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO materials (name, size, shape) VALUES (%s, %s, %s) RETURNING material_id",
-                [name, size, shape]
+                "INSERT INTO materials (material_name, size, shape) VALUES (%s, %s, %s) RETURNING material_id",
+                [material_name, size, shape]
             )
             material_id = cursor.fetchone()[0]
             conn.commit()
@@ -62,7 +62,7 @@ def add_material(name, size, shape):
     finally:
         conn.close()
 
-def update_material(material_id, name, size, shape):
+def update_material(material_id, material_name, size, shape):
     """
     Обновить информацию о материале.
     Возвращает True, если обновление успешно, иначе False.
@@ -71,8 +71,8 @@ def update_material(material_id, name, size, shape):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "UPDATE materials SET name = %s, size = %s, shape = %s WHERE material_id = %s",
-                [name, size, shape, material_id]
+                "UPDATE materials SET material_name = %s, size = %s, shape = %s WHERE material_id = %s",
+                [material_name, size, shape, material_id]
             )
             conn.commit()
             return True
@@ -92,7 +92,7 @@ def get_materials_by_model_id(model_id):
         with conn.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT m.material_id, m.name, m.size, m.shape, mm.quantity
+                SELECT m.material_id, m.material_name, m.size, m.shape, mm.quantity
                 FROM materials m
                 JOIN model_materials mm ON m.material_id = mm.material_id
                 WHERE mm.model_id = %s

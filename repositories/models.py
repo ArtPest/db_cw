@@ -10,7 +10,7 @@ def get_all_models():
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "SELECT model_id, name, description, difficulty_level FROM models ORDER BY name"
+                "SELECT model_id, model_name, description, difficulty_level FROM models ORDER BY model_name"
             )
             models = cursor.fetchall()
             return models
@@ -29,7 +29,7 @@ def get_model_by_id(model_id):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "SELECT model_id, name, description, difficulty_level FROM models WHERE model_id = %s",
+                "SELECT model_id, model_name, description, difficulty_level FROM models WHERE model_id = %s",
                 [model_id]
             )
             model = cursor.fetchone()
@@ -40,7 +40,7 @@ def get_model_by_id(model_id):
     finally:
         conn.close()
 
-def add_model(name, description, difficulty_level):
+def add_model(model_name, description, difficulty_level):
     """
     Добавить новую модель оригами.
     Возвращает ID добавленной модели.
@@ -51,7 +51,7 @@ def add_model(name, description, difficulty_level):
             cursor.execute(
                 "INSERT INTO models (name, description, difficulty_level, author_id) "
                 "VALUES (%s, %s, %s, %s) RETURNING model_id",
-                [name, description, difficulty_level]
+                [model_name, description, difficulty_level]
             )
             model_id = cursor.fetchone()[0]
             conn.commit()
@@ -62,7 +62,7 @@ def add_model(name, description, difficulty_level):
     finally:
         conn.close()
 
-def update_model(model_id, name, description, difficulty_level):
+def update_model(model_id, model_name, description, difficulty_level):
     """
     Обновить информацию о модели оригами.
     Возвращает True, если обновление успешно, иначе False.
@@ -71,8 +71,8 @@ def update_model(model_id, name, description, difficulty_level):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "UPDATE models SET name = %s, description = %s, difficulty_level = %s WHERE model_id = %s",
-                [name, description, difficulty_level, model_id]
+                "UPDATE models SET model_name = %s, description = %s, difficulty_level = %s WHERE model_id = %s",
+                [model_name, description, difficulty_level, model_id]
             )
             conn.commit()
             return True
@@ -93,7 +93,7 @@ def get_models_by_tag_and_difficulty(tag: int, difficulty: str) -> object:
         with conn.cursor() as cursor:
             # Строим запрос динамически, чтобы учитывать выбор "Все"
             query = """
-                SELECT m.model_id, m.name, m.description, m.difficulty_level
+                SELECT m.model_id, m.model_name, m.description, m.difficulty_level
                 FROM models m
                 JOIN model_tags mt ON m.model_id = mt.model_id
                 WHERE 1=1
@@ -131,7 +131,7 @@ def get_models_by_author(author_id):
     try:
         with conn.cursor() as cursor:
             cursor.execute(
-                "SELECT model_id, name, description, difficulty_level FROM models WHERE author_id = %s ORDER BY name",
+                "SELECT model_id, model_name, description, difficulty_level FROM models WHERE author_id = %s ORDER BY model_name",
                 [author_id]
             )
             models = cursor.fetchall()

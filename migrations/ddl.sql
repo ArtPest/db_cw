@@ -19,14 +19,14 @@ COMMENT ON COLUMN users.role IS 'Роль пользователя (user или 
 -- Таблица моделей оригами (models)
 CREATE TABLE models (
     model_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    model_name VARCHAR(255) NOT NULL,
     description TEXT,
     difficulty_level VARCHAR(50)
 );
 
 COMMENT ON TABLE models IS 'Информация о моделях оригами';
 COMMENT ON COLUMN models.model_id IS 'Уникальный идентификатор модели';
-COMMENT ON COLUMN models.name IS 'Название модели';
+COMMENT ON COLUMN models.model_name IS 'Название модели';
 COMMENT ON COLUMN models.description IS 'Описание модели';
 COMMENT ON COLUMN models.difficulty_level IS 'Уровень сложности';
 
@@ -59,14 +59,14 @@ COMMENT ON COLUMN diagrams.diagram_order IS 'Порядковый номер ш�
 -- Таблица материалов (materials)
 CREATE TABLE materials (
     material_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    material_name VARCHAR(255) NOT NULL,
     size VARCHAR(50),  -- Например, "15x15 см"
     shape VARCHAR(50)  -- Например, "квадрат", "прямоугольник"
 );
 
 COMMENT ON TABLE materials IS 'Список используемых материалов';
 COMMENT ON COLUMN materials.material_id IS 'Уникальный идентификатор материала';
-COMMENT ON COLUMN materials.name IS 'Название материала';
+COMMENT ON COLUMN materials.material_name IS 'Название материала';
 COMMENT ON COLUMN materials.size IS 'Размер материала';
 COMMENT ON COLUMN materials.shape IS 'Форма материала';
 
@@ -74,12 +74,12 @@ COMMENT ON COLUMN materials.shape IS 'Форма материала';
 -- Таблица тегов (tags)
 CREATE TABLE tags (
     tag_id SERIAL PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL
+    tag_name VARCHAR(255) UNIQUE NOT NULL
 );
 
 COMMENT ON TABLE tags IS 'Теги для моделей';
 COMMENT ON COLUMN tags.tag_id IS 'Уникальный идентификатор тега';
-COMMENT ON COLUMN tags.name IS 'Название тега';
+COMMENT ON COLUMN tags.tag_name IS 'Название тега';
 
 
 -- Связующая таблица для моделей и материалов (model_materials)

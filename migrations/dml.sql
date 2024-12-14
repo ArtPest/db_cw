@@ -3,7 +3,7 @@ INSERT INTO users (password, email, role) VALUES
 ('admin', 'admin@example.ru', 'admin');
 
 -- Заполнение таблицы tags (добавлено больше тегов)
-INSERT INTO tags (name) VALUES
+INSERT INTO tags (tag_name) VALUES
 ('животные'),
 ('птицы'),
 ('цветы'),
@@ -22,7 +22,7 @@ INSERT INTO tags (name) VALUES
 ('собаки');
 
 -- Заполнение таблицы materials (добавлено больше материалов)
-INSERT INTO materials (name, size, shape) VALUES
+INSERT INTO materials (material_name, size, shape) VALUES
 ('бумага', '15x15 см', 'квадрат'),
 ('бумага', '20x20 см', 'квадрат'),
 ('цветная бумага', '10x10 см', 'квадрат'),
@@ -31,7 +31,7 @@ INSERT INTO materials (name, size, shape) VALUES
 ('лента', '50 см', 'полоска');
 
 -- Заполнение таблицы models (добавлено больше моделей)
-INSERT INTO models (name, description, difficulty_level) VALUES
+INSERT INTO models (model_name, description, difficulty_level) VALUES
 ('Журавлик', 'Классическая модель оригами', 'easy'),
 ('Лягушка', 'Прыгающая лягушка', 'medium'),
 ('Лилия', 'Красивый цветок', 'hard'),

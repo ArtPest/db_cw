@@ -9,7 +9,7 @@ def get_all_tags():
     conn = get_connection()
     try:
         with conn.cursor() as cursor:
-            cursor.execute("SELECT tag_id, name FROM tags")
+            cursor.execute("SELECT tag_id, tag_name FROM tags")
             tags = cursor.fetchall()
             return tags
     except Exception as e:

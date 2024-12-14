@@ -29,7 +29,7 @@ def show_profile_page(email):
         st.write("У вас пока нет избранных моделей.")
     else:
         for model in favorite_models:
-            st.write(f"### {model['name']}")
+            st.write(f"### {model['model_name']}")
             st.write(f"Описание: {model['description']}")
             st.write(f"Сложность: {model['difficulty_level']}")
 
@@ -46,15 +46,15 @@ def show_profile_page(email):
                 st.image("no_image_found.jpg", caption="Диаграммы отсутствуют")
 
             # Кнопка для перехода к модели
-            if st.button(f"Перейти к {model['name']}", key=f"model_button_{model['model_id']}"):
+            if st.button(f"Перейти к {model['model_name']}", key=f"model_button_{model['model_id']}"):
                 # Сохраняем ID модели и переходим на страницу модели
                 st.session_state.page = "model"
                 st.session_state.model_id = model['model_id']
-                st.session_state.model_name = model['name']  # Сохраняем имя модели для отображения
+                st.session_state.model_name = model['model_name']  # Сохраняем имя модели для отображения
                 st.rerun()  # Перезагружаем страницу
 
             # Кнопка для удаления из избранного
-            if st.button(f"Удалить {model['name']} из избранного", key=f"remove_button_{model['model_id']}"):
+            if st.button(f"Удалить {model['model_name']} из избранного", key=f"remove_button_{model['model_id']}"):
                 user_models_repo.remove_model_from_favorites(user['user_id'], model['model_id'])
                 st.rerun()  # Перезагружаем страницу, чтобы обновить интерфейс
 

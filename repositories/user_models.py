@@ -22,7 +22,7 @@ import services.db as db
 def get_favorite_models_by_user_id(user_id):
     # Запрос для получения избранных моделей пользователя
     query = """
-        SELECT m.model_id, m.name, m.description, m.difficulty_level
+        SELECT m.model_id, m.model_name, m.description, m.difficulty_level
         FROM models m   
         JOIN user_models um ON m.model_id = um.model_id
         WHERE um.user_id = %s
