@@ -1,7 +1,7 @@
 Руководство по настройке и запуску
 1. Создать docker-image:
 
-docker-compose --env-file env.env up -d
+docker-compose --env-file environment/env.env up -d
 
 2. Установить необходимые компоненты:
 
